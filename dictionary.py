@@ -2,7 +2,7 @@ import csv
 
 def get_dictionary(initial, length):
     """Creates a list of all words beginning with a particular letter."""
-    filename = initial + ' Words.csv'
+    filename = initial + '_words.csv'
     with open(filename) as f:
         reader = csv.reader(f)
         words = []
