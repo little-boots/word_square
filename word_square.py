@@ -70,7 +70,7 @@ while run == True:
                     solution_filename = 'solutions/' + seed_word + '_word_squares.txt'
                     with open(solution_filename, 'a') as solution_file:
                         for v in range(length):
-                            solution_file.write(square_words[v] + '\n')
+                            solution_file.write(square_words[v].upper() + '\n')
                         solution_file.write('\n\n')
                     print(str(solutions) + ' solution(s) found!!!')
                     working_position -= 1  
