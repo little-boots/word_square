@@ -1,16 +1,16 @@
 from dictionary import get_dictionary, get_fixed_letters
 
+#Ask for initial seed word
+seed_word = input('Enter a word: ')
+seed_word = seed_word.lower()
+
 run = True
 while run == True:
-
-    #Ask for a seed word
-    seed_word = input('Enter a word: ')
-    seed_word = seed_word.lower()
 
     #Break the seed word into individual letters
     initials = list(seed_word)
 
-    #get the length for words that will fit the square
+    #Get the length for words that will fit the square
     length = len(seed_word)
 
     #Make a dictionary of appropriate length words for each initial
@@ -30,8 +30,8 @@ while run == True:
     #initialize other variables
     working_position = 1
     square_solved = False
-    last_test = ''
     test_strip = 'init'
+    solutions = 0
 
     fixed_letters = get_fixed_letters(working_position, square_words)
 
@@ -47,37 +47,49 @@ while run == True:
                 word_list = word_list_shelf[working_position]
                 fixed_letters = get_fixed_letters(working_position, square_words)
             elif working_position == 1:
-                print('\nNo valid word_square exists.\nThis is all I could do:\n')
-                for word in square_words:
-                    print(word)
+                if solutions == 0:
+                    print('\nNo valid word_square exists.')
+                else:
+                    print('\nOperation Complete.')
                 working_position = length + 1
         else:
-            last_test = test_strip
             test_strip = test_word[:working_position]
-            if test_strip != last_test:
-                if test_strip == fixed_letters:
-                    try:
-                        square_words[working_position] = test_word
-                    except IndexError:
-                        square_words.append(test_word)
-                    try:
-                        word_list_shelf[working_position] = word_list
-                    except IndexError:
-                        word_list_shelf.append(word_list)
-                    working_position += 1
-                    if working_position < length:
-                        fixed_letters = get_fixed_letters(working_position, square_words)
-                        word_list = word_lists[working_position].copy()
-                    else:
-                        square_solved = True
+            if test_strip == fixed_letters:
+                try:
+                    square_words[working_position] = test_word
+                except IndexError:
+                    square_words.append(test_word)
+                try:
+                    word_list_shelf[working_position] = word_list
+                except IndexError:
+                    word_list_shelf.append(word_list)
+                working_position += 1
+                if working_position == length:
+                    #square_solved = True
+                    solutions += 1
+                    solution_filename = 'solutions/' + seed_word + '_word_squares.txt'
+                    with open(solution_filename, 'a') as solution_file:
+                        for v in range(length):
+                            solution_file.write(square_words[v] + '\n')
+                        solution_file.write('\n\n')
+                    print(str(solutions) + ' solution(s) found!!!')
+                    working_position -= 1  
+                else:
+                    fixed_letters = get_fixed_letters(working_position, square_words)
+                    word_list = word_lists[working_position].copy()
                         
     #Print the word square
-    if square_solved == True:
-        print('\nSquare Solved!!!\n')
-        for z in range(length):
-            print(square_words[z].upper())
+    #All this will have to be changed for "find all"
+    #if square_solved == True:
+    #    print('\nSquare Solved!!!\n')
+    #    for z in range(length):
+    #        print(square_words[z].upper())
 
-    try_again = input('\nTry again?\n(y/n):  ')
-    try_again.lower()
-    if try_again == 'n':
+    #Report action
+    print('Check the solutions folder.')
+
+    #Ask to go again
+    seed_word = input('\nEnter a new word?\n(Or "q" to quit):  ')
+    seed_word.lower()
+    if seed_word == 'q':
         run = False
