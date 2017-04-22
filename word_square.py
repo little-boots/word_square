@@ -47,7 +47,7 @@ while run == True:
                 word_list = word_list_shelf[working_position]
                 fixed_letters = get_fixed_letters(working_position, square_words)
             elif working_position == 1:
-                print('\nNo valid word_square exists.\nThis all I could do:\n')
+                print('\nNo valid word_square exists.\nThis is all I could do:\n')
                 for word in square_words:
                     print(word)
                 working_position = length + 1
@@ -75,7 +75,7 @@ while run == True:
     if square_solved == True:
         print('\nSquare Solved!!!\n')
         for z in range(length):
-            print(square_words[z])
+            print(square_words[z].upper())
 
     try_again = input('\nTry again?\n(y/n):  ')
     try_again.lower()
