@@ -71,7 +71,7 @@ while run == True:
                     #maybe there's a solution word already in this spot
                     square_words[working_position] = test_word
                 except IndexError:	
-                    #if not, make a new one
+                    #if not, make a new spot
                     square_words.append(test_word)
                 try:
                     #put the partially consumed list on the shelf, if a spot exists
