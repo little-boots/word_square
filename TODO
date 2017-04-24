@@ -1,0 +1,3 @@
+Rank letter/length/position combos by no. of remaining words
+Rank words by usage (requires importing public data from someplace... Google ngrams?)
+Loop through all possibilities to return all possible wordsquares
